@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  color: #524f4f;
+  
+}
+
+body {
+  background:linear-gradient(#e66465, #9198e5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  width: 100vw;
+  height: 100vh;
+
+
+
+}
