@@ -1,27 +1,22 @@
-/* .addQuestion-container {
+.addQuestion-container {
   position: relative;
   max-width: 1000px;
   width: 100%;
   margin: 2rem auto;
-  background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
-  &
-
-  .addQuestion-form {
+  & .addQuestion-form {
     display: flex;
     flex-direction: column;
   }
 
-  &
-  label {
+  & label {
     margin-bottom: 1rem;
   }
 
-  &
-  input{
+  & input {
     width: 100%;
     padding: 10px;
     margin-top: 0.5rem;
@@ -30,16 +25,12 @@
     font-size: 1rem;
   }
 
-  &
-
-  input:focus {
+  & input:focus {
     outline: none;
-  border-color: #007bff;
+    border-color: #007bff;
   }
 
-  &
-
-  button {
+  & button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -50,14 +41,11 @@
     cursor: pointer;
   }
 
-  &
-
-  button:hover{
+  & button:hover {
     background-color: #0056b3;
   }
 
-&  
-.error{
+  & .error {
     position: absolute;
     top: 2rem;
     left: 2rem;
@@ -65,90 +53,64 @@
     font-weight: bold;
   }
 
-  &
-  #map {
+  & #map {
     margin-top: 1rem;
     width: 100vw;
-    height:100vh;
+    height: 100vh;
   }
 
   .loading {
     text-align: center;
     margin-top: 2rem;
   }
-  
+
   .loading-icon {
     width: 50px;
     height: 50px;
     animation: rotate 2s linear infinite;
   }
-  
+
   @keyframes rotate {
     100% {
       transform: rotate(360deg);
     }
   }
-  
 
   @media (max-width: 768px) {
     article {
       padding: 1rem;
     }
-  
+
     button[type="submit"] {
       width: 100%;
-    } 
-}
- 
- 
- 
- /* article .error {
-  color: red;
-  border: solid 1px red;
-}
-#map {
-  width: 100vw;
-  height:100vh;
-
-
-}
-.loading {
-    display: flex;
-
-    justify-content: space-between;
-    margin-top: 20px;
-    align-items: center;
-  }
-  
-  .loading-icon {
-    width: 50px;
-    height: 50px;
-    animation: spin 4s linear infinite;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
     }
   }
 
-  .loading {
-    display: flex;
-  
-    justify-content: space-between;
-    margin-top: 20px;
-    align-items: center;
+  article .error {
+    color: red;
+    border: solid 1px red;
   }
-  
-  .loading-icon {
-    width: 50px;
-    height: 50px;
-    animation: spin 4s linear infinite;
+  #map {
+    width: 100vw;
+    height: 100vh;
   }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+}
+.loading-container {
+  display: flex;
+
+  justify-content: space-between;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.loading-icon {
+  width: 50px;
+  height: 50px;
+  animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-   */ 
+}

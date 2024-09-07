@@ -2,21 +2,68 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
-  color: #524f4f;
-  
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 
 body {
-  background:linear-gradient(#e66465, #9198e5);
+  height: 100vh;
+  background: linear-gradient(to bottom, #d284de 0%, #e66465 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  width: 100vw;
-  height: 100vh;
+  color: #333;
+}
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ece4e4;
+  margin-bottom: 40px;
+  font-weight: 500;
+  letter-spacing: 7px;
+}
 
+h2 {
+  text-align: start;
+  font-size: 1.5rem;
+  color: #ece4e4;
+  margin-bottom: 40px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+.error {
+  color: red;
+  font-size: 20px;
+}
+.error-input {
+  border: solid red 2px;
+}
+button {
+  margin-left: 20px;
+ 
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  background-color: rgb(147, 140, 140);
+  height: 3rem;
+  width: 10rem;
+  border-radius: 16px;
+  margin-top: auto;
+  transition: 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    background-color: #900d78;
+  }
+  &
+  button[type="submit"]{
+    margin-top:1,5rem;
+  }
+}
 
-
+@media (max-width: 600px) {
+  body {
+    justify-content: flex-start; /* Startar innehållet från toppen på små skärmar */
+    padding: 30px; /* Lägger till lite extra padding för mindre skärmar */
+  }
 }

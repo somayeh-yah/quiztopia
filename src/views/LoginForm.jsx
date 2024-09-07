@@ -21,8 +21,7 @@ export default function LoginForm() {
     }
 
     const userData = { username, password };
-    
-   
+
     try {
       console.log(userData);
       const response = await fetch(`${baseUrl}/auth/login `, {
@@ -38,54 +37,48 @@ export default function LoginForm() {
       sessionStorage.setItem("token", data.token);
       navigate("/add-quiz");
     } catch (error) {
-      console.error("Submission error:", error);
-      setErrorMessage("An error occurred while creating the account. Please try again.");
+      console.log(error);
     }
-    
-
-    return (
-      <>
-        <h1>Come and play Quiz with us</h1>
-        <article>
-        {hasError && <p className="error">{errorMessage}</p>}
-          <h2>Logga in:</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Användarnamn:
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              ></input>
-            </label>
-            <label>
-              Lösenord:
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              ></input>
-            </label>
-            <button type="submit">Logga in</button>
-          </form>
-          <button onClick={()=> navigate("/create-account")}>
-            Skapa ett konto
-          </button>
-          <button
-            id="secret-btn"
-            type="button"
-            className="secret-button"
-            onClick={() => setShowSecret(true)}
-          >
-            Visa info
-          </button>
-          {showSecret ? <KryptoTunnel /> : null}
-        </article>
-      </>
-    );
   };
+
+  return (
+    <>
+      {hasError && <p className="error">{errorMessage}</p>}
+
+      <h2>Logga in:</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={username}
+          placeholder="Enter username..."
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
+          className={hasError && !username ? "error-input" : ""}
+        ></input>
+
+        <input
+          type="password"
+          value={password}
+          placeholder="Enter password..."
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          className={hasError && !username ? "error-input" : ""}
+        ></input>
+
+        <button type="submit">Logga in</button>
+      </form>
+      <button onClick={() => navigate("/create-account")}>Skapa konto</button>
+      <button
+        id="secret-btn"
+        type="button"
+        className="secret-button"
+        onClick={() => setShowSecret(true)}
+      >
+        Visa info
+      </button>
+      {showSecret ? <KryptoTunnel /> : null}
+    </>
+  );
 }
