@@ -11,8 +11,8 @@ import loading from "../assets/loading-icon.png";
 export default function AddQuestion() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  const [position, setPosition] = useState([57.7089, 11.9746]);
-  const [map, setMap] = useState();
+  // const [position, setPosition] = useState([57.7089, 11.9746]);
+  const [map, setMap] = useState(null);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [token, setToken] = useState("");
@@ -23,64 +23,49 @@ export default function AddQuestion() {
   console.log("Quiz Name:" + quizName);
 
   function getPosition() {
-    if ('geolocation' in navigator && !position?.latitude) {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setPosition(position.coords);
+        const lat = position.coords.latitude;
+        const long = position.coords.longitude;
+        setLatitude(lat);
+        setLongitude(long);
       });
     }
   }
 
   useEffect(() => {
-    if (!position?.latitude) {
-      getPosition();
-    }
+   getPosition()
   }, []);
   useEffect(() => {
-    if (position?.latitude && !map) {
-      const myMap = leaflet
+    if (latitude && longitude && !map) {
+      const initMap = leaflet
         .map('map')
-        .setView([position?.latitude, position?.longitude], 15);
+        .setView([latitude, longitude], 15);
 
-      setMap(myMap);
-    }
-  }, [position]);
+      setMap(initMap);
 
-  useEffect(() => {
-    if (map && position) {
       leaflet
-        .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        })
-        .addTo(map);
+      .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      })
+      .addTo(initMap);
 
-      const marker = leaflet
-        .marker([position?.latitude, position?.longitude])
-        .addTo(map);
-
-      marker.bindPopup('Detta är Jensen YH');
-
-      map.on('click', (event) => {
-        console.log(event);
-        const marker = leaflet
-          .marker([event.latlng.lat, event.latlng.lng])
-          .addTo(map);
-
-          setLatitude(event.latlng.lat);
-          setLongitude(event.latlng.lng)
-      });
-
-      marker.on('click', () => {
-        console.log('Du klickade på Jensen YH');
+      initMap.on("click", (event) => {
+        const { lat, lng } = event.latlng;
+        setLatitude(lat);
+        setLongitude(lng);
+        leaflet.marker([lat, lng]).addTo(initMap);
       });
     }
-  }, [map]);
+    
+  }, [latitude, longitude, map]);
+
 
   useEffect(() => {
     const checkToken = async () => {
       const storedToken = sessionStorage.getItem("token") || "";
-      // check på om det är en tom sträng
       console.log("token", storedToken);
 
       if (storedToken.length > 0) {
@@ -138,16 +123,14 @@ export default function AddQuestion() {
     const quizData = {
      question: question,
       answer: answer,
-      longitude: position.longitude,
-      latitude:position.latitude
+      // longitude: position.longitude,
+      // latitude:position.latitude
     };
 console.log("data:" ,quizData);
 
     const savedQuizes = JSON.parse(sessionStorage.getItem("quizzes") || "[]");
     savedQuizes.push(quizData);
     sessionStorage.setItem("quizzes", JSON.stringify(savedQuizes));
-
-    // navigate("/display-all-Quizes");
   };
 
   return (
@@ -188,7 +171,7 @@ console.log("data:" ,quizData);
         Laddar Karta...
       </p>
       
-      <section id="map"></section>
+      <section id="map" ></section>
     </>
   );
 }

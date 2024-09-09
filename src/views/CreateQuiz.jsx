@@ -53,6 +53,7 @@ function CreateQuiz() {
         value={quizName}
         onChange={(e) => setQuizName(e.target.value)}
         placeholder="Create a quiz..."
+        id="create-quizz-input"
       />
       <button onClick={saveQuiz}>Create Quiz</button>
     </>

@@ -19,13 +19,12 @@ form {
     font-size: 1rem;
     width: 100%;
     transition: border-color 0.3s;
+    
+    
   
   }
-  & 
-  input:focus {
-    border-color: #007bff;
-    outline: none;
-  }
+  
+
 
 
 }
