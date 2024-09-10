@@ -8,6 +8,7 @@
 
 body {
   min-height: 100vh;
+  min-width: 100vw;
   background: linear-gradient(to bottom, #d284de 0%, #e66465 100%);
   display: flex;
   flex-direction: column;
@@ -60,7 +61,7 @@ button {
   height: 3rem;
   width: 10rem;
   border-radius: 16px;
-  margin-top: auto;
+  margin-top: 10px;
   transition: 0.3s;
   &:hover {
     transform: scale(1.1);

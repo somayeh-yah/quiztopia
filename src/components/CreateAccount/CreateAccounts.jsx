@@ -37,7 +37,7 @@ export default function CreateAccounts() {
       console.log("API respons", data);
 
       if (data.success) {
-        // Om användarkontot skapas, navigera till inloggningssidan
+  
         navigate("/");
       } else {
         return;
@@ -49,7 +49,7 @@ export default function CreateAccounts() {
 
   return (
     <>
-      <h2>Skapa konto</h2>
+      <h2>Create Account</h2>
       {hasError && <p className="error">{errorMessage}</p>}
       <form onSubmit={handleSubmit}>
         <input
@@ -72,9 +72,9 @@ export default function CreateAccounts() {
           className={hasError && !password ? "error-input" : ""}
         ></input>
 
-        <button type="submit">Skapa konto</button>
+        <button type="submit">Submit</button>
       </form>
-      <button onClick={() => navigate("/")}>Tillbaka</button>
+      <button onClick={() => navigate("/")}>Go Back</button>
     </>
   );
 }

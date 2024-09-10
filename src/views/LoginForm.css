@@ -3,12 +3,11 @@ form {
   flex-direction: column;
   margin: 2rem auto;
   border-radius: 8px;
-  background:linear-gradient(#b0b6ef, #d2caca) ;
+  background: linear-gradient(#b0b6ef, #d2caca);
   padding: 2rem;
   width: 100%;
   gap: 16px;
-  & 
-  label {
+  & label {
     display: block;
   }
   & input {
@@ -19,16 +18,8 @@ form {
     font-size: 1rem;
     width: 100%;
     transition: border-color 0.3s;
-    
-    
-  
   }
-  
-
-
-
 }
-
 
 #secret-btn {
   background-color: transparent;
@@ -36,6 +27,3 @@ form {
   cursor: pointer;
   border: none;
 }
-
-
-

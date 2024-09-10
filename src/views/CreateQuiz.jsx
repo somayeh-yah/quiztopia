@@ -10,7 +10,7 @@ function CreateQuiz() {
   useEffect(() => {
     const checkToken = async () => {
       const storedToken = sessionStorage.getItem("token") || "";
-      // check på om det är en tom sträng
+     
       console.log("token", storedToken);
 
       if (storedToken.length > 0) {

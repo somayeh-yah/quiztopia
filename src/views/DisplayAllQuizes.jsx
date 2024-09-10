@@ -1,55 +1,71 @@
 import { useState, useEffect } from "react";
 import "../views/DisplayAllQuizes.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import "leaflet/dist/leaflet.css"; 
+
 export default function DisplayAllQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null); 
   const navigate = useNavigate();
-  // const quizName = useParams();
+
   const baseUrl = "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com";
 
-  async function getAllQuizez() {
-    try {
-      const response = await fetch(`${baseUrl}/quiz`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log("alla guiz", data);
-      setQuizzes(data.quizzes);
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    async function getAllQuizzes() {
+      try {
+        const response = await fetch(`${baseUrl}/quiz`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        setQuizzes(data.quizzes); 
+        setLoading(false);
+      } catch (error) {
+        setError("Something went wrong, please try again later.");
+        setLoading(false); 
+      }
     }
+
+    getAllQuizzes();
+  }, [baseUrl]); 
+
+  if (loading) {
+    return <p>Laddar quiz...</p>;
   }
 
-  useEffect(() => {
-    getAllQuizez();
-  }, []);
+  if (error) {
+    return <p className="error-message">{error}</p>;
+  }
+
+  function handleNavigate(quiz) {
+    navigate(`/quiz/${quiz.userId}/${quiz.quizId}`);
+  }
 
   return (
     <article className="allquizes-container">
-      <h2 className="allquiz-title">All Quizzez</h2>
+      <h2 className="allquiz-title">All Quizzes</h2>
       <div className="quizzez-container">
         {quizzes.length > 0 ? (
-          quizzes.map((quiz, index) => (
-            <div className="quiz-card" key={index}>
+          quizzes.map((quiz) => (
+            <div className="quiz-card" key={quiz.quizId}>
               <p>
-                <strong>Av:</strong> {quiz.username}
+                <strong>Created by:</strong> {quiz.username}
               </p>
               <p>
-                <strong>Quiz ID:</strong> {quiz.quizId}
+                <strong>Quiz Name:</strong> {quiz.quizId}
               </p>
-              <p>
-                <strong>User ID:</strong> {quiz.userId}
-              </p>
+              
+              <button id="show-btn" onClick={() => handleNavigate(quiz)}>Show</button>
             </div>
           ))
         ) : (
-          <p>Inga guizz hittades</p>
+          <p>No quizzes found</p>
         )}
       </div>
-      <button className="goback-button" href="" onClick={() => navigate("/")}>
+      <button className="goback-button" onClick={() => navigate("/add-quiz")}>
         Go back
       </button>
     </article>

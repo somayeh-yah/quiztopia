@@ -1,23 +1,21 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../views/AddQuestion.css";
-// import L from "leaflet";
 import leaflet from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-// import AddMarker from "../components/MapComponent/AddMarker";
 const baseUrl = "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com";
 import loading from "../assets/loading-icon.png";
 
 export default function AddQuestion() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
-  // const [position, setPosition] = useState([57.7089, 11.9746]);
   const [map, setMap] = useState(null);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [token, setToken] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);
+  const [loadingMap, setLoadingMap] = useState(true);
   const navigate = useNavigate();
   const { quizName } = useParams();
   console.log("Quiz Name:" + quizName);
@@ -36,6 +34,7 @@ export default function AddQuestion() {
   useEffect(() => {
    getPosition()
   }, []);
+  
   useEffect(() => {
     if (latitude && longitude && !map) {
       const initMap = leaflet
@@ -43,7 +42,8 @@ export default function AddQuestion() {
         .setView([latitude, longitude], 15);
 
       setMap(initMap);
-
+      
+      setLoadingMap(false);
       leaflet
       .tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -55,7 +55,7 @@ export default function AddQuestion() {
       initMap.on("click", (event) => {
         const { lat, lng } = event.latlng;
         setLatitude(lat);
-        setLongitude(lng);
+        setLongitude(lng); 
         leaflet.marker([lat, lng]).addTo(initMap);
       });
     }
@@ -123,8 +123,6 @@ export default function AddQuestion() {
     const quizData = {
      question: question,
       answer: answer,
-      // longitude: position.longitude,
-      // latitude:position.latitude
     };
 console.log("data:" ,quizData);
 
@@ -165,13 +163,22 @@ console.log("data:" ,quizData);
           </button>
         </form>
       </article>
-
+      
+      {loadingMap &&
       <p className="loading-container">
         <img className="loading-icon" src={loading} />
         Laddar Karta...
       </p>
+      }
       
       <section id="map" ></section>
     </>
   );
 }
+
+
+
+
+
+
+

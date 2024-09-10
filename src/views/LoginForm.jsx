@@ -45,7 +45,7 @@ export default function LoginForm() {
     <>
       {hasError && <p className="error">{errorMessage}</p>}
 
-      <h2>Logga in:</h2>
+      <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -67,16 +67,16 @@ export default function LoginForm() {
           className={hasError && !username ? "error-input" : ""}
         ></input>
 
-        <button type="submit">Logga in</button>
+        <button type="submit">Sign in</button>
       </form>
-      <button onClick={() => navigate("/create-account")}>Skapa konto</button>
+      <button onClick={() => navigate("/create-account")}>Submit</button>
       <button
         id="secret-btn"
         type="button"
         className="secret-button"
         onClick={() => setShowSecret(true)}
       >
-        Visa info
+        Show info
       </button>
       {showSecret ? <KryptoTunnel /> : null}
     </>
