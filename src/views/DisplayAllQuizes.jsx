@@ -49,8 +49,8 @@ export default function DisplayAllQuizzes() {
       <h2 className="allquiz-title">All Quizzes</h2>
       <div className="quizzez-container">
         {quizzes.length > 0 ? (
-          quizzes.map((quiz) => (
-            <div className="quiz-card" key={quiz.quizId}>
+          quizzes.map((quiz, index) => (
+            <div className="quiz-card" key={`${quiz.quizId}- ${index}`}>
               <p>
                 <strong>Created by:</strong> {quiz.username}
               </p>
