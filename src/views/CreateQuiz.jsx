@@ -1,30 +1,37 @@
-import React from "react";
-import { useEffect, useState} from "react";
-import { useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CreateQuiz() {
   const navigate = useNavigate();
   const [quizName, setQuizName] = useState("");
   const [token, setToken] = useState("");
- 
+  const [userId, setUserId] = useState("");
+
   useEffect(() => {
     const checkToken = async () => {
       const storedToken = sessionStorage.getItem("token") || "";
-     
-      console.log("token", storedToken);
 
       if (storedToken.length > 0) {
         setToken(storedToken);
       }
+
+      if (userId.length > 0) {
+        setUserId(userId);
+      }
+
+      console.log("token:", storedToken);
     };
     checkToken();
   }, []);
 
   async function saveQuiz() {
-    console.log("token2", token);
+    if (!quizName) {
+      console.error("Quiz name is required");
+      return;
+    }
 
     if (token) {
-      console.log("click");
+      console.log("token", token);
       try {
         const response = await fetch(
           "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com/quiz",
@@ -37,9 +44,14 @@ function CreateQuiz() {
             body: JSON.stringify({ name: quizName }),
           }
         );
-        const data = await response.json();
-        console.log(data);
-        navigate(`/add-question/${quizName}`);
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data, "quizz succsess");
+          navigate(`/add-question/${quizName}`);
+        } else {
+          console.error("failed creat quizz", response.status);
+        }
       } catch (error) {
         console.error(error);
       }

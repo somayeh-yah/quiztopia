@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../CreateAccount/CreateAccounts.css";
 import { useNavigate } from "react-router-dom";
 export default function CreateAccounts() {
@@ -20,16 +20,13 @@ export default function CreateAccounts() {
     const userData = { username, password };
 
     try {
-      const response = await fetch(
-       `${baseUrl}/auth/signup`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userData),
-        }
-      );
+      const response = await fetch(`${baseUrl}/auth/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+      });
       if (!response.ok) {
         throw new Error("Något gick fel");
       }
@@ -37,7 +34,6 @@ export default function CreateAccounts() {
       console.log("API respons", data);
 
       if (data.success) {
-  
         navigate("/");
       } else {
         return;

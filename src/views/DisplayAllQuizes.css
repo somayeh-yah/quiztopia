@@ -41,6 +41,8 @@
     color: #fff;
   }
 
+  
+
   @media (max-width: 900px) {
     .quizzez-container {
       grid-template-columns: repeat(2, 1fr);

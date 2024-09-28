@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "../views/DisplayAllQuizes.css";
-import { useNavigate} from "react-router-dom";
-import "leaflet/dist/leaflet.css"; 
+import { useNavigate } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
 
 export default function DisplayAllQuizzes() {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const baseUrl = "https://fk7zu3f4gj.execute-api.eu-north-1.amazonaws.com";
@@ -21,16 +21,16 @@ export default function DisplayAllQuizzes() {
           },
         });
         const data = await response.json();
-        setQuizzes(data.quizzes); 
+        setQuizzes(data.quizzes);
         setLoading(false);
       } catch (error) {
         setError("Something went wrong, please try again later.");
-        setLoading(false); 
+        setLoading(false);
       }
     }
 
     getAllQuizzes();
-  }, [baseUrl]); 
+  }, [baseUrl]);
 
   if (loading) {
     return <p>Laddar quiz...</p>;
@@ -57,8 +57,10 @@ export default function DisplayAllQuizzes() {
               <p>
                 <strong>Quiz Name:</strong> {quiz.quizId}
               </p>
-              
-              <button id="show-btn" onClick={() => handleNavigate(quiz)}>Show</button>
+
+              <button id="show-btn" onClick={() => handleNavigate(quiz)}>
+                Show
+              </button>
             </div>
           ))
         ) : (
