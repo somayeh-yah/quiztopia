@@ -78,8 +78,8 @@ export default function Quiz() {
       quiz.questions.forEach((question) => {
         const { latitude, longitude } = question.location;
 
-        const lat = parseFloat(latitude).toFixed(0);
-        const lng = parseFloat(longitude).toFixed(0);
+        const lat = parseFloat(latitude);
+        const lng = parseFloat(longitude);
 
         const marker = leaflet.marker([lat, lng]).addTo(map);
         marker.bindPopup(`
